@@ -1,7 +1,12 @@
 import atproto
 import datetime
+import os
 import re
 import zoneinfo
+
+def generate_images_subdir(subdirpath):
+    print(f'Generating images subdirectory {subdirpath} ...')
+    os.makedirs(subdirpath, exist_ok=True)
 
 def generate_post_file(filepath, start, no, title, openmeet_rsvp_uri):
     print(f'Generating post file {filepath} ...')
@@ -234,6 +239,7 @@ def main():
         raise RuntimeError(f'Unable to determine OpenMeet RSVP URI from URI list: {uris!r}')
     title_in_filename = re.sub('[^0-9a-z]+', '-', title.lower()).strip('-')
     filename = f'{start:%Y-%m-%d}-no{no}-{title_in_filename}.md'
+    generate_images_subdir(f'assets/images/{no}')
     generate_post_file(f'_posts/{filename}', start=start, no=no, title=title, openmeet_rsvp_uri=openmeet_rsvp_uri)
     generate_slides_file(f'_slides/{filename}', start=start, no=no, title=title)
     print('Finished.')
