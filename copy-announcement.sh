@@ -8,6 +8,6 @@ echo 'Creating Python venv if needed ...'
 
 echo 'Installing and updating Python packages as needed ...'
 python3 -m ensurepip --upgrade
-python3 -m pip install -r requirements.txt
+python3 -m pip install -qr requirements.txt
 
 exec python3 copy-announcement.py
